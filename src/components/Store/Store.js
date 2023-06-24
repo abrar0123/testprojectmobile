@@ -5,6 +5,8 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import AppText from '../../components/UI/AppText';
 import mycolors from '../../styles/mycolors';
@@ -82,7 +84,9 @@ const Store = () => {
         <AppText style={styles.headerText}>Jdk Store</AppText>
       </View>
       <FlatList
-        contentContainerStyle={{paddingBottom: selectIndex.id === 0 ? 35 : 5}}
+        contentContainerStyle={{
+          paddingBottom: selectIndex.id === 0 ? respHeight(6) : 6,
+        }}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={storedata}
@@ -92,8 +96,8 @@ const Store = () => {
       />
       {selectIndex.id === 0 ? (
         <FlatList
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: respHeight(70)}}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: respHeight(72)}}
           data={allstoredata}
           numColumns={2}
           keyExtractor={item => item.id}
@@ -126,25 +130,22 @@ const Store = () => {
 
 const styles = StyleSheet.create({
   parent: {
-    padding: 15,
+    paddingHorizontal: respHeight(1.5),
+    paddingTop: (Platform.OS = 'android' && respHeight(2)),
     // flex: 1,
     backgroundColor: mycolors.white,
   },
   headerText: {
-    fontSize: 22,
+    fontSize: scale(22),
     fontWeight: 'bold',
     color: mycolors.white,
   },
-  primaryText: {
-    fontSize: 16,
-    color: mycolors.white,
-    marginVertical: 5,
-  },
+
   cardStyle: {
     backgroundColor: mycolors.jaman,
-    paddingHorizontal: 15,
-    paddingVertical: 18,
-    marginBottom: 20,
+    paddingHorizontal: respWidth(3),
+    paddingVertical: respHeight(2.5),
+    marginBottom: respHeight(2.5),
     borderRadius: 10,
   },
 
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
 
   storeCakeStyle: {
     width: respWidth(44),
-    height: respHeight(16),
+    height: respHeight(16.3),
     marginVertical: moderateScale(5),
     borderRadius: 10,
     overflow: 'hidden',
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
   cakeTitle: {
     fontSize: scale(18),
     alignSelf: 'center',
-    marginVertical: respWidth(0.6),
+    // marginVertical: respWidth(0.6),
     fontWeight: 'bold',
     color: mycolors.white,
   },
