@@ -5,8 +5,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Platform,
-  StatusBar,
 } from 'react-native';
 import AppText from '../../components/UI/AppText';
 import mycolors from '../../styles/mycolors';
@@ -16,7 +14,7 @@ import {
   respHeight,
   respWidth,
 } from '../../components/responsiveness/RespHeight';
-import {moderateScale, scale} from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 import {
   brownie,
   cakes,
@@ -25,25 +23,25 @@ import {
   gulabjamun,
   storedata,
 } from '../../constants/data';
+
 import {useState} from 'react';
-
 const allstoredata = cakes.concat(custom, brownie, chocolate);
-
 const Store = () => {
-  const [selectIndex, setselectIndex] = useState({id: 0, bgc: 'black'});
+  const [selectIndex, setselectIndex] = useState({id: 0, bgc: mycolors.black});
 
   // console.log('data:\n', cakes.concat(custom, brownie));
+
   const selectHandler = (ind, bgc) => {
     setselectIndex({id: ind, bgc: bgc});
   };
-
   console.log('select', selectIndex);
-  const renderItem = ({item}) => {
+
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={selectHandler.bind(this, item.id, item.color)}
         activeOpacity={0.9}>
-        <View
+        <Smcard
           style={{
             ...styles.storeCardStyle,
             backgroundColor:
@@ -58,35 +56,33 @@ const Store = () => {
             }}>
             {item.name}
           </AppText>
-        </View>
+        </Smcard>
       </TouchableOpacity>
     );
   };
 
-  const renderCakes = ({item}) => {
+  const renderCakes = ({item, index}) => {
     return (
       <TouchableOpacity activeOpacity={0.9}>
-        <Smcard
+        <View
           style={{
             ...styles.storeCakeStyle,
             backgroundColor: selectIndex.bgc,
           }}>
           <Image source={item.img} style={styles.cakeimg} />
           <AppText style={styles.cakeTitle}>{item.name}</AppText>
-        </Smcard>
+        </View>
       </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.parent}>
-      <View style={styles.cardStyle}>
-        <AppText style={styles.headerText}>Jdk Store</AppText>
-      </View>
+      <Smcard style={{...styles.cardStyle, backgroundColor: selectIndex.bgc}}>
+        <AppText style={{...styles.headerText}}>Jdk Store</AppText>
+      </Smcard>
+
       <FlatList
-        contentContainerStyle={{
-          paddingBottom: selectIndex.id === 0 ? respHeight(6) : 6,
-        }}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={storedata}
@@ -94,6 +90,7 @@ const Store = () => {
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={{width: 10}} />}
       />
+
       {selectIndex.id === 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -130,72 +127,78 @@ const Store = () => {
 
 const styles = StyleSheet.create({
   parent: {
-    paddingHorizontal: respHeight(1.5),
-    paddingTop: (Platform.OS = 'android' && respHeight(2)),
-    // flex: 1,
+    padding: 15,
     backgroundColor: mycolors.white,
   },
   headerText: {
-    fontSize: scale(22),
+    fontSize: 22,
+    // marginBottom: 20,
     fontWeight: 'bold',
     color: mycolors.white,
   },
-
+  primaryText: {
+    fontSize: 16,
+    color: mycolors.white,
+    marginVertical: 5,
+  },
   cardStyle: {
-    backgroundColor: mycolors.jaman,
-    paddingHorizontal: respWidth(3),
-    paddingVertical: respHeight(2.5),
-    marginBottom: respHeight(2.5),
-    borderRadius: 10,
+    backgroundColor: mycolors.primaryorange,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginBottom: 20,
   },
 
   // ------
   storeCardStyle: {
     width: respWidth(36),
-    height: respHeight(18),
+    height: respHeight(16),
+    // height: 300,
+    marginVertical: moderateScale(5),
     borderRadius: 10,
+    // gap: moderateScale(5),
     overflow: 'hidden',
-    // paddingVertical: respHeight(1),
   },
 
   img: {
-    width: respWidth(35),
-    height: respHeight(22),
+    width: '100%',
+    height: 150,
+    // backgroundColor: mycolors.jaman,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     resizeMode: 'contain',
     position: 'relative',
-    bottom: respHeight(6),
-    left: respHeight(7),
+    bottom: 45,
+    left: 40,
   },
   title: {
-    fontSize: scale(18),
-    paddingHorizontal: respWidth(3),
-    paddingVertical: respHeight(1.1),
-
+    fontSize: 18,
+    paddingHorizontal: 10,
     fontWeight: 'bold',
     color: mycolors.white,
     position: 'relative',
-    bottom: respHeight(10),
+    bottom: 66,
   },
 
   storeCakeStyle: {
     width: respWidth(44),
-    height: respHeight(16.3),
+    // width: '100%',
+    height: respHeight(16),
+    // height: 300,
     marginVertical: moderateScale(5),
     borderRadius: 10,
+    // gap: moderateScale(5),
     overflow: 'hidden',
   },
   cakeimg: {
     width: '80%',
-    height: respHeight(11),
+    height: 80,
     resizeMode: 'contain',
     alignSelf: 'center',
   },
   cakeTitle: {
-    fontSize: scale(18),
+    fontSize: 18,
     alignSelf: 'center',
-    // marginVertical: respWidth(0.6),
+    paddingHorizontal: 10,
     fontWeight: 'bold',
     color: mycolors.white,
   },
