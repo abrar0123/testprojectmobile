@@ -5,6 +5,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import AppText from '../../components/UI/AppText';
 import mycolors from '../../styles/mycolors';
@@ -14,7 +15,7 @@ import {
   respHeight,
   respWidth,
 } from '../../components/responsiveness/RespHeight';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale} from 'react-native-size-matters';
 import {
   brownie,
   cakes,
@@ -25,6 +26,7 @@ import {
 } from '../../constants/data';
 
 import {useState} from 'react';
+import {StatusBar} from 'react-native';
 const allstoredata = cakes.concat(custom, brownie, chocolate);
 const Store = () => {
   const [selectIndex, setselectIndex] = useState({id: 0, bgc: mycolors.black});
@@ -86,6 +88,9 @@ const Store = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={storedata}
+        contentContainerStyle={{
+          paddingBottom: selectIndex.id === 0 ? respHeight(7) : 5,
+        }}
         keyExtractor={item => item.id}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={{width: 10}} />}
@@ -94,7 +99,7 @@ const Store = () => {
       {selectIndex.id === 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: respHeight(72)}}
+          contentContainerStyle={{paddingBottom: respHeight(38)}}
           data={allstoredata}
           numColumns={2}
           keyExtractor={item => item.id}
@@ -127,78 +132,72 @@ const Store = () => {
 
 const styles = StyleSheet.create({
   parent: {
-    padding: 15,
+    paddingHorizontal: respHeight(1.5),
+    paddingTop: respHeight(2),
+    // paddingTop: (Platform.OS = 'android' && StatusBar.currentHeight),
     backgroundColor: mycolors.white,
   },
   headerText: {
-    fontSize: 22,
-    // marginBottom: 20,
+    fontSize: scale(22),
     fontWeight: 'bold',
     color: mycolors.white,
   },
-  primaryText: {
-    fontSize: 16,
-    color: mycolors.white,
-    marginVertical: 5,
-  },
+
   cardStyle: {
-    backgroundColor: mycolors.primaryorange,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginBottom: 20,
+    backgroundColor: mycolors.jaman,
+    paddingHorizontal: respWidth(3),
+    paddingVertical: respHeight(2.5),
+    marginBottom: respHeight(2.5),
+    borderRadius: 10,
   },
 
   // ------
   storeCardStyle: {
     width: respWidth(36),
-    height: respHeight(16),
-    // height: 300,
-    marginVertical: moderateScale(5),
+    height: respHeight(18),
     borderRadius: 10,
-    // gap: moderateScale(5),
     overflow: 'hidden',
+    // paddingVertical: respHeight(1),
   },
 
   img: {
-    width: '100%',
-    height: 150,
-    // backgroundColor: mycolors.jaman,
+    width: respWidth(35),
+    height: respHeight(22),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     resizeMode: 'contain',
     position: 'relative',
-    bottom: 45,
-    left: 40,
+    bottom: respHeight(6),
+    left: respHeight(7),
   },
   title: {
-    fontSize: 18,
-    paddingHorizontal: 10,
+    fontSize: scale(18),
+    paddingHorizontal: respWidth(3),
+    paddingVertical: respHeight(1.1),
+
     fontWeight: 'bold',
     color: mycolors.white,
     position: 'relative',
-    bottom: 66,
+    bottom: respHeight(10),
   },
 
   storeCakeStyle: {
     width: respWidth(44),
-    // width: '100%',
-    height: respHeight(16),
-    // height: 300,
+    height: respHeight(16.3),
     marginVertical: moderateScale(5),
     borderRadius: 10,
-    // gap: moderateScale(5),
     overflow: 'hidden',
   },
   cakeimg: {
     width: '80%',
-    height: 80,
+    height: respHeight(11),
     resizeMode: 'contain',
     alignSelf: 'center',
   },
   cakeTitle: {
-    fontSize: 18,
+    fontSize: scale(18),
     alignSelf: 'center',
-    paddingHorizontal: 10,
+    // marginVertical: respWidth(0.6),
     fontWeight: 'bold',
     color: mycolors.white,
   },
