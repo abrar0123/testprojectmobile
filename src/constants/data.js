@@ -1,7 +1,7 @@
 import imagesPath1 from './imagesPath1';
 
 export const storedata = [
-  {id: 0, name: 'All Data', image: imagesPath1.cake, color: 'black'},
+  {id: 0, name: 'All Data', image: imagesPath1.Brownie, color: 'black'},
   {id: 1, name: 'Cakes', image: imagesPath1.cake, color: '#028A8F'},
   {id: 2, name: 'Custom', image: imagesPath1.custom, color: '#E780A9'},
   {id: 3, name: 'Brownie', image: imagesPath1.Brownie, color: '#9FDDC8'},

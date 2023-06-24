@@ -28,7 +28,7 @@ import {useState} from 'react';
 const allstoredata = cakes.concat(custom, brownie, chocolate);
 
 const Store = () => {
-  const [selectIndex, setselectIndex] = useState({id: -1, bgc: ''});
+  const [selectIndex, setselectIndex] = useState({id: 0, bgc: 'black'});
 
   // console.log('data:\n', cakes.concat(custom, brownie));
   const selectHandler = (ind, bgc) => {
@@ -36,7 +36,7 @@ const Store = () => {
   };
 
   console.log('select', selectIndex);
-  const renderItem = ({item, index}) => {
+  const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         onPress={selectHandler.bind(this, item.id, item.color)}
@@ -61,28 +61,28 @@ const Store = () => {
     );
   };
 
-  const renderCakes = ({item, index}) => {
+  const renderCakes = ({item}) => {
     return (
       <TouchableOpacity activeOpacity={0.9}>
-        <View
+        <Smcard
           style={{
             ...styles.storeCakeStyle,
             backgroundColor: selectIndex.bgc,
           }}>
           <Image source={item.img} style={styles.cakeimg} />
           <AppText style={styles.cakeTitle}>{item.name}</AppText>
-        </View>
+        </Smcard>
       </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.parent}>
-      <Smcard style={styles.cardStyle}>
+      <View style={styles.cardStyle}>
         <AppText style={styles.headerText}>Jdk Store</AppText>
-      </Smcard>
-
+      </View>
       <FlatList
+        contentContainerStyle={{paddingBottom: selectIndex.id === 0 ? 35 : 5}}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={storedata}
@@ -90,28 +90,36 @@ const Store = () => {
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={{width: 10}} />}
       />
-
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        data={
-          selectIndex.id === 0
-            ? allstoredata
-            : selectIndex.id === 1
-            ? cakes
-            : selectIndex.id === 2
-            ? custom
-            : selectIndex.id === 3
-            ? brownie
-            : selectIndex.id === 4
-            ? chocolate
-            : selectIndex.id === 5 && gulabjamun
-        }
-        numColumns={2}
-        keyExtractor={item => item.id}
-        renderItem={renderCakes}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
-        // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-      />
+      {selectIndex.id === 0 ? (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 500}}
+          data={allstoredata}
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={renderCakes}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+        />
+      ) : (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          data={
+            selectIndex.id === 1
+              ? cakes
+              : selectIndex.id === 2
+              ? custom
+              : selectIndex.id === 3
+              ? brownie
+              : selectIndex.id === 4
+              ? chocolate
+              : selectIndex.id === 5 && gulabjamun
+          }
+          numColumns={2}
+          keyExtractor={item => item.id}
+          renderItem={renderCakes}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+        />
+      )}
     </View>
   );
 };
@@ -124,7 +132,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 22,
-    marginBottom: 20,
     fontWeight: 'bold',
     color: mycolors.white,
   },
@@ -135,8 +142,8 @@ const styles = StyleSheet.create({
   },
   cardStyle: {
     backgroundColor: mycolors.jaman,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 18,
     marginBottom: 20,
     borderRadius: 10,
   },
