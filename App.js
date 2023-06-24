@@ -5,7 +5,6 @@ import Store from './src/components/Store/Store';
 const App = () => {
   return (
     <View>
-      <Text>welcome here</Text>
       <Store />
     </View>
   );
