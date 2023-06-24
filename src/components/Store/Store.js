@@ -14,7 +14,7 @@ import {
   respHeight,
   respWidth,
 } from '../../components/responsiveness/RespHeight';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale} from 'react-native-size-matters';
 import {
   brownie,
   cakes,
@@ -41,7 +41,7 @@ const Store = () => {
       <TouchableOpacity
         onPress={selectHandler.bind(this, item.id, item.color)}
         activeOpacity={0.9}>
-        <Smcard
+        <View
           style={{
             ...styles.storeCardStyle,
             backgroundColor:
@@ -56,7 +56,7 @@ const Store = () => {
             }}>
             {item.name}
           </AppText>
-        </Smcard>
+        </View>
       </TouchableOpacity>
     );
   };
@@ -93,7 +93,7 @@ const Store = () => {
       {selectIndex.id === 0 ? (
         <FlatList
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingBottom: 500}}
+          contentContainerStyle={{paddingBottom: respHeight(70)}}
           data={allstoredata}
           numColumns={2}
           keyExtractor={item => item.id}
@@ -151,54 +151,50 @@ const styles = StyleSheet.create({
   // ------
   storeCardStyle: {
     width: respWidth(36),
-    height: respHeight(16),
-    // height: 300,
-    marginVertical: moderateScale(5),
+    height: respHeight(18),
     borderRadius: 10,
-    // gap: moderateScale(5),
     overflow: 'hidden',
+    // paddingVertical: respHeight(1),
   },
 
   img: {
-    width: '100%',
-    height: 150,
-    // backgroundColor: mycolors.jaman,
+    width: respWidth(35),
+    height: respHeight(22),
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     resizeMode: 'contain',
     position: 'relative',
-    bottom: 45,
-    left: 40,
+    bottom: respHeight(6),
+    left: respHeight(7),
   },
   title: {
-    fontSize: 18,
-    paddingHorizontal: 10,
+    fontSize: scale(18),
+    paddingHorizontal: respWidth(3),
+    paddingVertical: respHeight(1.1),
+
     fontWeight: 'bold',
     color: mycolors.white,
     position: 'relative',
-    bottom: 66,
+    bottom: respHeight(10),
   },
 
   storeCakeStyle: {
     width: respWidth(44),
-    // width: '100%',
     height: respHeight(16),
-    // height: 300,
     marginVertical: moderateScale(5),
     borderRadius: 10,
-    // gap: moderateScale(5),
     overflow: 'hidden',
   },
   cakeimg: {
     width: '80%',
-    height: 80,
+    height: respHeight(11),
     resizeMode: 'contain',
     alignSelf: 'center',
   },
   cakeTitle: {
-    fontSize: 18,
+    fontSize: scale(18),
     alignSelf: 'center',
-    paddingHorizontal: 10,
+    marginVertical: respWidth(0.6),
     fontWeight: 'bold',
     color: mycolors.white,
   },
