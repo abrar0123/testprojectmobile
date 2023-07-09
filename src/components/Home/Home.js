@@ -5,16 +5,61 @@ import {
   Image,
   Touchable,
   TouchableOpacity,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 import AppText from '../UI/AppText';
 import {respHeight, respWidth} from '../responsiveness/RespHeight';
 import mycolors from '../../styles/mycolors';
-import {scale} from 'react-native-size-matters';
+import {moderateScale, scale} from 'react-native-size-matters';
 import Smcard from '../UI/SmallCard/smcard';
 import imagesPath1 from '../../constants/imagesPath1';
 import Button from '../UI/Button';
 
+const partyData1 = [
+  {
+    id: 1,
+    name: 'Party Pack',
+    des: 'We connect with you with the top Bakers, Gift, Shops and Party',
+    img: imagesPath1.baloon,
+  },
+  {
+    id: 2,
+    name: 'Gift Bundles',
+    des: 'We connect with you with the top Bakers, Gift, Shops and Party',
+    img: imagesPath1.partyBox,
+  },
+];
+const partyData2 = [
+  {
+    id: 1,
+    name: 'Party Hub',
+    des: 'We connect with you with the top Bakers, Gift, Shops and Party',
+    img: imagesPath1.party,
+  },
+  {
+    id: 2,
+    name: 'Themed Cakes',
+    des: 'We connect with you with the top Bakers, Gift, Shops and Party',
+    img: imagesPath1.cake,
+  },
+];
 const Home = () => {
+  // render data 1
+  const renderData1 = ({item}) => {
+    return (
+      <View style={styles.storeCakeStyle}>
+        <View style={styles.partyDat1Container}>
+          <AppText style={styles.shopHeadText}>{item.name}</AppText>
+          <AppText style={styles.party1PrimaryText}>{item.des}</AppText>
+        </View>
+
+        <View style={styles.imgList1Container}>
+          <Image source={item.img} style={styles.img2} />
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.parent}>
       {/* ************ container 1 ************ */}
@@ -36,41 +81,57 @@ const Home = () => {
         </View>
       </View>
       {/* ************ container 2 ************ */}
-      <View>
-        <View style={styles.imgGiftContainer}>
-          <Image source={imagesPath1.topgift} style={styles.img} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <View style={styles.imgGiftContainer}>
+            <Image source={imagesPath1.topgift} style={styles.img} />
+          </View>
         </View>
-      </View>
-      {/* ************ container 3 ************ */}
-      <View style={styles.voucherContainer}>
-        <View style={styles.imgVoucherContainer}>
-          <Image source={imagesPath1.arrow} style={styles.img} />
+        {/* ************ container 3 ************ */}
+        <View style={styles.voucherContainer}>
+          <View style={styles.imgVoucherContainer}>
+            <Image source={imagesPath1.arrow} style={styles.img} />
+          </View>
+          <View style={styles.voucherText}>
+            <AppText style={{fontSize: scale(14)}}>
+              Swipe To Redeem 15 AED Off On Your First Order.
+            </AppText>
+          </View>
+          <View
+            style={{...styles.imgVoucherContainer, padding: respHeight(1.2)}}>
+            <Image source={imagesPath1.voucher} style={styles.img} />
+          </View>
         </View>
-        <View style={styles.voucherText}>
-          <AppText style={{fontSize: scale(14)}}>
-            Swipe To Redeem 15 AED Off On Your First Order.
-          </AppText>
+        {/* ************ container 4 ************ */}
+        <View style={styles.shopContainer}>
+          {/* text View 1 */}
+          <View style={styles.shopTextContainer}>
+            <AppText style={styles.shopHeadText}>Browse & Shop</AppText>
+            <AppText style={styles.shopPrimaryText}>
+              Conect with top bakers,gift shops, and party planners for
+              convenient delvery of your choice.
+            </AppText>
+          </View>
+          {/* image View 2 */}
+          <View style={styles.imgPartyContainer}>
+            <Image source={imagesPath1.party1} style={styles.img1} />
+          </View>
         </View>
-        <View style={{...styles.imgVoucherContainer, padding: respHeight(1.2)}}>
-          <Image source={imagesPath1.voucher} style={styles.img} />
+        {/* ************ container 5 ************ */}
+        <View
+          style={{
+            marginHorizontal: respHeight(2),
+          }}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={partyData1}
+            numColumns={2}
+            keyExtractor={item => item.id}
+            renderItem={renderData1}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
+          />
         </View>
-      </View>
-      {/* ************ container 4 ************ */}
-      <View style={styles.shopContainer}>
-        {/* text View 1 */}
-        <View style={styles.shopTextContainer}>
-          <AppText style={styles.shopHeadText}>Browse & Shop</AppText>
-          <AppText style={styles.shopPrimaryText}>
-            Conect with top bakers,gift shops, and party planners for convenient
-            delvery of your choice.
-          </AppText>
-        </View>
-        {/* image View 2 */}
-        <View style={styles.imgPartyContainer}>
-          <Image source={imagesPath1.party1} style={styles.img1} />
-        </View>
-      </View>
-      <Smcard></Smcard>
+      </ScrollView>
     </View>
   );
 };
@@ -208,6 +269,40 @@ const styles = StyleSheet.create({
     position: 'relative',
     bottom: respHeight(4.5),
     right: respWidth(9),
+  },
+  //   container 5
+  storeCakeStyle: {
+    width: respWidth(45),
+    height: respHeight(31),
+    borderRadius: 4,
+    marginTop: respHeight(2),
+    overflow: 'hidden',
+    backgroundColor: mycolors.white,
+    paddingVertical: respHeight(1),
+    paddingHorizontal: respHeight(1),
+  },
+  imgList1Container: {
+    width: respWidth(85),
+    height: respHeight(28),
+    // backgroundColor: mycolors.black,
+    paddingVertical: respHeight(0),
+    paddingHorizontal: respHeight(0),
+  },
+  img2: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+    position: 'relative',
+    bottom: respHeight(10.5),
+    right: respWidth(20),
+  },
+  partyDat1Container: {
+    width: respWidth(29),
+  },
+  party1PrimaryText: {
+    fontSize: scale(11),
+    color: mycolors.dgrey,
+    marginVertical: respHeight(1),
   },
 });
 
