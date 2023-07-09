@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import Store from './src/components/Store/Store';
+import {StyleSheet, Text} from 'react-native';
+import Home from './src/components/Home/Home';
 
 const App = () => {
-  return <Store />;
+  return <Home />;
 };
 
 const styles = StyleSheet.create({});
