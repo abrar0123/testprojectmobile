@@ -60,6 +60,30 @@ const Home = () => {
       </View>
     );
   };
+  //   render data 2
+
+  const renderData2 = ({item}) => {
+    return (
+      <View style={styles.storeCakeStyleMilk}>
+        <AppText style={styles.shopHeadTextMilk}>{item.name}</AppText>
+
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignContent: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <View style={styles.partyDat1ContainerMilk}>
+            <AppText style={styles.party1PrimaryTextMilk}>{item.des}</AppText>
+          </View>
+          <View style={styles.imgList1ContainerMilk}>
+            <Image source={item.img} style={styles.img2Milk} />
+          </View>
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.parent}>
       {/* ************ container 1 ************ */}
@@ -128,6 +152,20 @@ const Home = () => {
             numColumns={2}
             keyExtractor={item => item.id}
             renderItem={renderData1}
+            columnWrapperStyle={{justifyContent: 'space-between'}}
+          />
+        </View>
+        {/* ************ container 5 ************ */}
+        <View
+          style={{
+            marginHorizontal: respHeight(2),
+          }}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={partyData2}
+            numColumns={2}
+            keyExtractor={item => item.id}
+            renderItem={renderData2}
             columnWrapperStyle={{justifyContent: 'space-between'}}
           />
         </View>
@@ -270,6 +308,7 @@ const styles = StyleSheet.create({
     bottom: respHeight(4.5),
     right: respWidth(9),
   },
+
   //   container 5
   storeCakeStyle: {
     width: respWidth(45),
@@ -303,6 +342,50 @@ const styles = StyleSheet.create({
     fontSize: scale(11),
     color: mycolors.dgrey,
     marginVertical: respHeight(1),
+  },
+
+  //    container 6
+
+  //   container 5
+  storeCakeStyleMilk: {
+    width: respWidth(45),
+    height: respHeight(12.5),
+    borderRadius: 4,
+    marginTop: respHeight(2),
+    overflow: 'hidden',
+    backgroundColor: mycolors.white,
+    paddingVertical: respHeight(1),
+    paddingHorizontal: respHeight(1),
+    marginBottom: respHeight(5),
+  },
+  imgList1ContainerMilk: {
+    width: respWidth(25),
+    height: respHeight(9),
+    // backgroundColor: mycolors.grey,
+    paddingVertical: respHeight(0),
+    paddingHorizontal: respHeight(0),
+  },
+  img2Milk: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+    position: 'relative',
+    bottom: respHeight(1),
+    right: respWidth(5),
+  },
+  partyDat1ContainerMilk: {
+    width: respWidth(26),
+    // backgroundColor: mycolors.red,
+  },
+  party1PrimaryTextMilk: {
+    fontSize: scale(9),
+    textAlign: 'auto',
+    color: mycolors.dgrey,
+    marginVertical: respHeight(1),
+  },
+  shopHeadTextMilk: {
+    fontSize: scale(15),
+    fontWeight: 'bold',
   },
 });
 
