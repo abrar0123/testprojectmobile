@@ -15,6 +15,7 @@ import {moderateScale, scale} from 'react-native-size-matters';
 import Smcard from '../UI/SmallCard/smcard';
 import imagesPath1 from '../../constants/imagesPath1';
 import Button from '../UI/Button';
+import MySwiper from './MySwiper';
 
 const partyData1 = [
   {
@@ -28,6 +29,20 @@ const partyData1 = [
     name: 'Gift Bundles',
     des: 'We connect with you with the top Bakers, Gift, Shops and Party',
     img: imagesPath1.partyBox,
+  },
+];
+const swiperdata = [
+  {
+    id: 1,
+    url: imagesPath1.topgift,
+  },
+  {
+    id: 2,
+    url: imagesPath1.topgift,
+  },
+  {
+    id: 3,
+    url: imagesPath1.topgift,
   },
 ];
 const partyData2 = [
@@ -97,6 +112,16 @@ const Home = () => {
           {/* 1 */}
           <View style={styles.imgContainer2}>
             <Image source={imagesPath1.cart} style={styles.img} />
+            <View style={styles.cartItemsContainer}>
+              <AppText
+                style={{
+                  color: mycolors.white,
+                  fontSize: 13,
+                  fontWeight: 'bold',
+                }}>
+                2
+              </AppText>
+            </View>
           </View>
           {/* 2 */}
           <View style={styles.imgContainer2}>
@@ -107,9 +132,10 @@ const Home = () => {
       {/* ************ container 2 ************ */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <View style={styles.imgGiftContainer}>
+          {/* <View style={styles.imgGiftContainer}>
             <Image source={imagesPath1.topgift} style={styles.img} />
-          </View>
+          </View> */}
+          <MySwiper swiperdata={swiperdata} />
         </View>
         {/* ************ container 3 ************ */}
         <View style={styles.voucherContainer}>
@@ -222,8 +248,18 @@ const styles = StyleSheet.create({
     height: respHeight(7),
     // height: 50,
     borderRadius: 60,
-    padding: respHeight(1.4),
+    padding: respHeight(1.7),
     backgroundColor: mycolors.lightgrey,
+  },
+  cartItemsContainer: {
+    width: 20,
+    height: 20,
+    backgroundColor: mycolors.red,
+    borderRadius: 20,
+    position: 'relative',
+    bottom: 44,
+    left: 14,
+    alignItems: 'center',
   },
   img: {
     width: '100%',
